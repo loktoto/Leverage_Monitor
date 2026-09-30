@@ -1,11 +1,11 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "status": "PRODUCTION_LIVE_TEST",
-  "effective_at": "2026-08-03T11:22:00+08:00",
+  "effective_at": "2026-09-30T10:39:00+08:00",
   "scope": "prospective_live_test_of_validated_research_leverage_signals",
   "order_authority": "NONE",
   "broker_execution": "NEVER_CREATE_MODIFY_OR_TRANSMIT_ORDERS",
-  "purpose": "Use validated research signals as prospective live-test signals and build an auditable out-of-sample trade record from fresh market observations.",
+  "purpose": "Run the strategy as a realistic paper-live journal as if self-funded: faithfully record every valid OPEN/EXIT using observed executable-side quotes, measure actual leveraged-product performance against the same-period 1x benchmark, and preserve the full decision/audit trail without sending broker orders.",
   "relationship_to_formal_production": {
     "formal_SOXX_signal_unchanged": true,
     "live_test_is_separate_from_formal_trade_authority": true,
@@ -85,18 +85,42 @@
   "performance_accounting": {
     "currency": "USD",
     "position_basis": "one_notional_dollar_unless_a_test_notional_is_explicitly_recorded",
+    "realism_mode": "PAPER_LIVE_AS_IF_SELF_FUNDED",
     "returns_use_actual_recorded_product_prices": true,
     "never_multiply_underlying_return_to_infer_leveraged_product_return": true,
-    "include": [
-      "gross_return",
-      "estimated_spread_cost",
-      "configured_transaction_cost",
-      "net_return",
-      "maximum_adverse_excursion_when_observable",
-      "maximum_favourable_excursion_when_observable",
+    "benchmark_pairs": {
+      "SPY_SSO": "SSO_vs_SPY",
+      "QQQ_QLD": "QLD_vs_QQQ",
+      "SOXX_formal": "recorded_actual_leveraged_vehicle_vs_SOXX"
+    },
+    "lifecycle_price_sides": {
+      "long_vehicle_entry": "ask",
+      "long_vehicle_current_or_exit": "bid",
+      "long_underlying_entry": "ask_when_same_timestamp_available",
+      "long_underlying_current_or_exit": "bid_when_same_timestamp_available"
+    },
+    "benchmark_timestamp_rule": "Use the same lifecycle observation timestamp for leveraged product and 1x underlying whenever available; otherwise use the closest reliable same-session observed underlying quote and label the basis. Never silently mix timestamps.",
+    "mandatory_trade_metrics": [
+      "leveraged_product_gross_return_pct",
+      "same_period_1x_return_pct",
+      "excess_return_percentage_points",
+      "entry_and_current_or_exit_timestamps",
+      "entry_and_current_or_exit_price_side",
       "holding_sessions",
+      "MAE_when_observable",
+      "MFE_when_observable",
+      "max_drawdown_when_observable",
       "exit_reason"
-    ]
+    ],
+    "cumulative_metrics_when_derivable": [
+      "completed_trade_count",
+      "compounded_leveraged_return",
+      "compounded_1x_return",
+      "cumulative_excess_return_percentage_points",
+      "win_count",
+      "loss_count"
+    ],
+    "missing_price_rule": "If a qualifying lifecycle price was not observed, realized return and realized excess return remain N/A. Never use a later close, premarket, after-hours or retrospective price as a substitute."
   },
   "github_audit_rules": {
     "state_file": "production/leverage_live_test_state.json",
@@ -118,7 +142,15 @@
       "validation_result",
       "data_source_labels"
     ],
-    "never_record_candidate_as_open_without_fresh_rth_entry_quote": true
+    "never_record_candidate_as_open_without_fresh_rth_entry_quote": true,
+    "daily_journal_path_template": "journal/YYYY-MM.md",
+    "daily_journal_required": true,
+    "methodology_docs": [
+      "docs/METHODOLOGY.md",
+      "docs/DAILY_RUNBOOK.md",
+      "docs/PERFORMANCE_ACCOUNTING.md",
+      "docs/CHANGELOG.md"
+    ]
   },
   "fail_safe": {
     "retry_failed_IBKR_endpoint_once": true,
