@@ -47,41 +47,29 @@
   "mandatory_decision_summary": {
     "position": "FIRST_SECTION_IN_EVERY_REPORT",
     "coverage": {
-      "etfs_and_baskets": [
-        "SPY",
-        "QQQ",
-        "SOXX",
-        "SMH",
-        "MAGS7",
-        "MAGS10"
+      "formal_production": [
+        "SOXX"
       ],
-      "individual_stocks": [
-        "AAPL",
-        "MSFT",
-        "NVDA",
-        "AMZN",
-        "GOOGL",
-        "META",
-        "TSLA",
-        "TSM"
+      "live_test": [
+        "SPY",
+        "QQQ"
+      ],
+      "context_only": [
+        "SMH"
       ]
     },
     "required_fields_per_asset": [
       "asset",
-      "asset_type",
       "leverage_decision",
-      "candidate_leverage_vehicle_or_none",
-      "trade_authority",
-      "live_test_state_or_none",
-      "two_to_four_key_reasons",
+      "candidate_vehicle_or_none",
+      "authority_or_state",
+      "latest_completed_signal",
+      "trigger_or_invalidation_distance",
+      "leveraged_return_vs_1x_when_available",
       "contrary_evidence",
-      "preliminary_confidence_0_to_10",
-      "validation_status",
-      "final_confidence_0_to_10",
-      "conclusion_changed_after_validation",
-      "entry_requirement_or_missing_confirmation",
-      "invalidation_or_exit_condition",
-      "change_versus_prior_report"
+      "M_D_E_L_confidence",
+      "final_confidence",
+      "direct_Cantonese_answer"
     ],
     "allowed_leverage_decisions": [
       "ENTER_LEVERAGE",
@@ -179,24 +167,16 @@
         "crypto_context_cannot_create_enlarge_delay_reduce_or_revoke_a_US_equity_leverage_action",
         "never_silently_blend_venues_or_timestamps"
       ]
+    },
+    "Longbridge": {
+      "role": "INDEPENDENT_CONTEXT_VALIDATOR_ZERO_FORMAL_AUTHORITY",
+      "production_authority": "ZERO",
+      "rules": [
+        "never_override_IBKR_formal_signal_or_lifecycle_price",
+        "never_average_with_IBKR_or_Alpaca",
+        "use_only_for_independent_context_quote_turnover_or_close_validation"
+      ]
     }
-  },
-  "individual_stock_leverage_guardrails": {
-    "default_authority": "RESEARCH_ONLY",
-    "new_leverage_entry_requires": [
-      "independent_underlying_specific_backtest",
-      "actual_leveraged_product_adjusted_price_validation",
-      "frozen_chronological_holdout",
-      "acceptable_liquidity_and_spread",
-      "no_unresolved_corporate_action_or_tracking_conflict",
-      "earnings_and_event_risk_check",
-      "daily_reset_path_dependence_assessment"
-    ],
-    "live_test_activation_may_use_validated_research_signal": true,
-    "live_test_still_requires_event_spread_and_actual_product_checks": true,
-    "earnings_blackout": "do_not_open_a_new_single_stock_leverage_live_test_during_the_five_completed_sessions_before_a_reliably_known_earnings_date",
-    "underlying_buy_does_not_imply_leverage_buy": true,
-    "no_suitable_product_output": "UNDERLYING_MAY_BE_ACTIONABLE_BUT_DO_NOT_USE_LEVERAGE"
   },
   "reporting_fail_safe": {
     "always_preserve_summary_validation_ledger_and_live_test_state": true,
