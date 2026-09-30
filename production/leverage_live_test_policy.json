@@ -1,7 +1,7 @@
 {
-  "schema_version": 4,
+  "schema_version": 5,
   "status": "PRODUCTION_LIVE_TEST",
-  "effective_at": "2026-09-30T10:39:00+08:00",
+  "effective_at": "2026-09-30T11:10:00+08:00",
   "scope": "prospective_live_test_of_validated_research_leverage_signals",
   "order_authority": "NONE",
   "broker_execution": "NEVER_CREATE_MODIFY_OR_TRANSMIT_ORDERS",
@@ -71,7 +71,24 @@
         "OHLC_bar_used_as_bid_or_ask",
         "underlying_return_times_leverage",
         "estimated_or_interpolated_price"
-      ]
+      ],
+      "source_exhaustion_rule": {
+        "exact_fill_priority": [
+          "IBKR historical Level-1 if connector/runtime exposes timestamped quote archive",
+          "Alpaca SIP historical Level-1"
+        ],
+        "validation_sources": [
+          "IBKR historical OHLCV/minute bars",
+          "Longbridge historical intraday OHLCV/minute bars",
+          "Longbridge quote/depth/trades where time-aligned",
+          "Alpaca trades/bars"
+        ],
+        "cross_asset_context": [
+          "Binance"
+        ],
+        "n_a_only_if": "No qualifying exact Level-1 source remains after retries/fallbacks, or all exact-price candidates fail the original execution-integrity gates.",
+        "prohibition": "Do not convert minute OHLCV, crypto data, or cross-source averages into an exact lifecycle bid/ask."
+      }
     }
   },
   "position_state_machine": [
@@ -167,7 +184,8 @@
     "do_not_open_a_live_test_position_without_reliable_fresh_IBKR_data": true,
     "degraded_field_text": "N/A — IBKR未取得可靠資料",
     "if_Alpaca_parity_required_and_unavailable": "cap_confidence_at_6.0_and_do_not_open_a_new_live_test",
-    "one_failed_asset_must_not_block_other_live_tests": true
+    "one_failed_asset_must_not_block_other_live_tests": true,
+    "multi_source_exhaustion_before_NA": true
   },
   "lifecycle_override_effective_date": "2026-09-25",
   "non_position_audit_outcomes": [
