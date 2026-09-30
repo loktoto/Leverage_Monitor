@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "status": "ACTIVE",
   "purpose": "daily_1700_HKT_production_data_source_strategy_journal_and_research_governance",
   "production": {
@@ -33,7 +33,7 @@
     },
     "independent_parity": {
       "source": "Alpaca",
-      "authority": "parity_and_fallback_only",
+      "authority": "parity_and_historical_quote_reconstruction",
       "preferred_completed_bar_feed": "SIP",
       "recent_snapshot_fallback_order": [
         "delayed_sip",
@@ -44,7 +44,14 @@
         "never_silently_splice_series",
         "never_average_conflicting_sources",
         "never_label_delayed_data_live"
-      ]
+      ],
+      "historical_level1_reconstruction": {
+        "preferred_feed": "SIP",
+        "fallback_policy": "delayed_sip_or_IEX_may_be_used_only_as_explicit_lower_fidelity_reference_unless_separately_validated",
+        "selection_rule": "first_qualifying_RTH_quote_after_eligible_timestamp",
+        "must_apply_original_spread_guardrail": true,
+        "never_cherry_pick_later_quote": true
+      }
     },
     "cross_asset_research": {
       "source": "Binance",
