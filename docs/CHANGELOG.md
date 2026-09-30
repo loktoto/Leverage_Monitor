@@ -12,3 +12,14 @@
 - Added human-readable methodology, runbook and performance-accounting documents.
 - Broker order authority remains NONE.
 - SOXX formal signal formula is unchanged.
+
+
+## 2026-09-30 — Audited historical Level-1 reconstruction
+
+- Corrected the assumption that a missed 17:00 lifecycle quote must remain permanently N/A.
+- Added deterministic reconstruction from timestamped historical Level-1 records.
+- Selection is the first qualifying RTH quote after the original eligible timestamp, using the original spread/integrity gates.
+- IBKR historical Level-1 is preferred when available; Alpaca SIP historical quotes are the canonical fallback.
+- Later closes, premarket/AH quotes, OHLC approximations, interpolation and cherry-picked prices remain prohibited.
+- Reconstructed records are explicitly labelled and are not broker executions.
+- Reconstructed the two previously unpriced 2026-09-11 exits from Alpaca SIP Level-1 records.
