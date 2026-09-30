@@ -1,5 +1,5 @@
 {
-  "schema_version": 3,
+  "schema_version": 4,
   "status": "ACTIVE",
   "purpose": "daily_1700_HKT_production_data_source_strategy_journal_and_research_governance",
   "production": {
@@ -78,6 +78,24 @@
         "never_average_conflicting_sources",
         "use_for_independent_context_only"
       ]
+    },
+    "source_redundancy": {
+      "lifecycle_exact_price": {
+        "primary_live": "IBKR Level-1",
+        "historical_exact_fallback": "Alpaca SIP Level-1",
+        "optional_if_exposed": "IBKR historical Level-1"
+      },
+      "lifecycle_price_corroboration": [
+        "IBKR minute/daily OHLCV",
+        "Longbridge intraday/historical minute OHLCV",
+        "Longbridge quote/depth/trades",
+        "Alpaca trades/bars"
+      ],
+      "risk_context": [
+        "Binance BTC/ETH spot and derivatives context",
+        "Longbridge market context"
+      ],
+      "rule": "A connector failure degrades only that source. Continue down the applicable source stack. N/A only after all exact-price sources applicable to the field have been exhausted."
     }
   },
   "latest_cross_source_smoke_test": {
