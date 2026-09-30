@@ -1,7 +1,7 @@
 {
-  "schema_version": 2,
-  "updated_at": "2026-09-25T23:41:00+08:00",
-  "mode": "PRODUCTION_LIVE_TEST_SIGNAL_TRACKING_ONLY",
+  "schema_version": 3,
+  "updated_at": "2026-09-30T10:39:00+08:00",
+  "mode": "PAPER_LIVE_AS_IF_SELF_FUNDED",
   "order_authority": "NONE",
   "active_tests": [],
   "closed_tests": [
@@ -106,7 +106,20 @@
         "exit_price_status": "N/A_NO_QUALIFYING_FRESH_IBKR_RTH_BID_OBSERVED",
         "lifecycle_closed_on_trigger": true,
         "reentry_blocked": false
-      }
+      },
+      "benchmark": {
+        "symbol": "SPY",
+        "entry_timestamp_et": "2026-08-04T11:56:53-04:00",
+        "entry_timestamp_hkt": "2026-08-04T23:56:53+08:00",
+        "entry_price": 768.64,
+        "entry_price_type": "SPY_ASK_SAME_OBSERVATION",
+        "exit_price": null,
+        "exit_price_type": null,
+        "realized_return_pct": null,
+        "excess_return_pp": null,
+        "note": "Exit price is unavailable for this historical EXIT, so realized 1x and excess return remain N/A; no retrospective backfill."
+      },
+      "methodology_version": "legacy_pre_2026-09-30"
     },
     {
       "test_id": "QQQ_QLD_20260828_02",
@@ -202,7 +215,20 @@
         "exit_price_status": "N/A_NO_QUALIFYING_FRESH_IBKR_RTH_BID_OBSERVED",
         "lifecycle_closed_on_trigger": true,
         "reentry_blocked": false
-      }
+      },
+      "benchmark": {
+        "symbol": "QQQ",
+        "entry_timestamp_et": "2026-08-31T09:34:03-04:00",
+        "entry_timestamp_hkt": "2026-08-31T21:34:03+08:00",
+        "entry_price": 715.54,
+        "entry_price_type": "QQQ_ASK_SAME_OBSERVATION",
+        "exit_price": null,
+        "exit_price_type": null,
+        "realized_return_pct": null,
+        "excess_return_pp": null,
+        "note": "Exit price is unavailable for this historical EXIT, so realized 1x and excess return remain N/A; no retrospective backfill."
+      },
+      "methodology_version": "legacy_pre_2026-09-30"
     },
     {
       "test_id": "QQQ_QLD_20260817_01",
@@ -266,7 +292,9 @@
         "reason": "QQQ_COMPLETED_RTH_CLOSE_BELOW_THEN_CURRENT_SMA50",
         "entry_was_recorded": false,
         "broker_execution": false
-      }
+      },
+      "benchmark": null,
+      "methodology_version": "legacy_pre_2026-09-30"
     }
   ],
   "state_semantics": {
@@ -277,6 +305,23 @@
     "pending_states_removed": true,
     "exit_price_may_be_null": true,
     "no_retroactive_exit_price_backfill": true,
-    "reentry_after_exit_is_new_test": true
+    "reentry_after_exit_is_new_test": true,
+    "paper_live_mode": "Strategy journal behaves as if self-funded for decision/accounting purposes, while broker execution remains prohibited.",
+    "user_portfolio_independence": true
+  },
+  "methodology_version": "2026-09-30-v1",
+  "user_portfolio_independence": true,
+  "performance_accounting": {
+    "benchmark_required": true,
+    "benchmark_pairs": {
+      "SPY": "SPY",
+      "QQQ": "QQQ",
+      "SOXX": "SOXX"
+    },
+    "long_vehicle_entry": "ASK",
+    "long_vehicle_current_or_exit": "BID",
+    "long_underlying_entry": "ASK_WHEN_SAME_TIMESTAMP_AVAILABLE",
+    "long_underlying_current_or_exit": "BID_WHEN_SAME_TIMESTAMP_AVAILABLE",
+    "never_infer_leveraged_return_from_underlying_multiple": true
   }
 }
