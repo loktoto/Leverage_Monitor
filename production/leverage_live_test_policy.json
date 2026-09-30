@@ -1,5 +1,5 @@
 {
-  "schema_version": 3,
+  "schema_version": 4,
   "status": "PRODUCTION_LIVE_TEST",
   "effective_at": "2026-09-30T10:39:00+08:00",
   "scope": "prospective_live_test_of_validated_research_leverage_signals",
@@ -51,7 +51,28 @@
       "may_be_tighter_for_liquid_products": true,
       "entry_blocked_when_spread_unavailable_or_above_limit": true
     },
-    "halt_guardrail": "entry_blocked_when_halted_or_quote_integrity_is_uncertain"
+    "halt_guardrail": "entry_blocked_when_halted_or_quote_integrity_is_uncertain",
+    "historical_quote_reconstruction": {
+      "enabled": true,
+      "purpose": "Recover the lifecycle price that would have been available at the original eligible RTH time when the scheduled run occurred outside RTH or a fresh observation was missed.",
+      "canonical_source_order": [
+        "IBKR_timestamped_historical_Level1_if_available",
+        "Alpaca_SIP_historical_Level1"
+      ],
+      "lower_fidelity_reference_only": [
+        "Alpaca_delayed_sip",
+        "Alpaca_IEX"
+      ],
+      "selection_rule": "Use the first timestamped RTH quote at or after the eligible lifecycle time that passes the same spread, halt and quote-integrity gates. Do not choose a later or more favourable quote.",
+      "label": "HISTORICAL_QUOTE_RECONSTRUCTION",
+      "not_considered_reconstruction": [
+        "later_daily_close",
+        "premarket_or_afterhours_quote",
+        "OHLC_bar_used_as_bid_or_ask",
+        "underlying_return_times_leverage",
+        "estimated_or_interpolated_price"
+      ]
+    }
   },
   "position_state_machine": [
     "OPEN",
@@ -67,7 +88,7 @@
     "no_implicit_fixed_take_profit": true,
     "daily_invalidation_uses_completed_RTH_close_unless_the_recorded_strategy_explicitly_defines_an_intraday_rule": true,
     "state_on_exit_trigger": "EXIT_IMMEDIATELY",
-    "if_no_qualifying_fresh_rth_exit_quote": "Keep exit price null/N/A, preserve the trigger and audit trail, do not backfill, and do not block future re-entry.",
+    "if_no_qualifying_fresh_rth_exit_quote": "Attempt audited historical Level-1 reconstruction of the first qualifying RTH bid. If an authoritative reconstruction is available, record it with source/timestamp/fidelity; otherwise keep exit price N/A. Never use a later close or estimated price.",
     "reentry_after_exit": "New live-test instance only after a new completed-RTH entry signal plus required validation and fresh qualifying IBKR RTH ask."
   },
   "performance_accounting": {
@@ -108,12 +129,12 @@
       "win_count",
       "loss_count"
     ],
-    "missing_price_rule": "If a qualifying lifecycle price was not observed, realized return and realized excess return remain N/A. Never use a later close, premarket, after-hours or retrospective price as a substitute."
+    "missing_price_rule": "If a fresh lifecycle quote was missed, first attempt audited timestamped historical Level-1 reconstruction under the reconstruction policy. If no authoritative qualifying archive exists, realized P&L and excess return remain N/A. Never substitute a later close, premarket, after-hours or estimated price."
   },
   "github_audit_rules": {
     "state_file": "production/leverage_live_test_state.json",
     "ledger_file": "production/leverage_live_test_ledger.csv",
-    "append_or_update_only_from_fresh_observed_data": true,
+    "append_or_update_only_from_fresh_observed_data": false,
     "never_fabricate_execution": true,
     "never_commit_licensed_raw_IBKR_data": true,
     "never_commit_account_positions_orders_executions_credentials_or_session_material": true,
@@ -138,7 +159,8 @@
       "docs/DAILY_RUNBOOK.md",
       "docs/PERFORMANCE_ACCOUNTING.md",
       "docs/CHANGELOG.md"
-    ]
+    ],
+    "append_or_update_rule": "State/ledger may be updated from fresh observed data OR an audited timestamped historical Level-1 reconstruction that follows the original lifecycle rule. Every reconstruction must preserve source, timestamp, spread, fidelity, and reconstruction time."
   },
   "fail_safe": {
     "retry_failed_IBKR_endpoint_once": true,
@@ -154,7 +176,8 @@
   ],
   "lifecycle_state_semantics": {
     "OPEN": "Activated live-test with a recorded qualifying fresh IBKR RTH entry observation.",
-    "EXIT": "Exit/invalidation signal has triggered; the strategy is no longer considered open immediately. If no qualifying fresh IBKR RTH exit quote was observed, exit price remains null/N/A and must never be retrospectively backfilled.",
-    "reentry": "A later re-entry is a new live-test instance and requires a new completed-RTH entry signal, required same-run validation, and a fresh qualifying IBKR RTH ask. There is no pending lifecycle state."
+    "EXIT": "Exit/invalidation signal has triggered; strategy is no longer open. If fresh exit quote was missed, reconstruct first qualifying RTH bid from authoritative historical Level-1 archive when available; otherwise keep N/A.",
+    "reentry": "A later re-entry is a new live-test instance and requires a new completed-RTH entry signal, required same-run validation, and a fresh qualifying IBKR RTH ask. There is no pending lifecycle state.",
+    "historical_reconstruction": "A reconstruction is not a broker execution. It is an audited replay of the first eligible historical quote under the same rules."
   }
 }
