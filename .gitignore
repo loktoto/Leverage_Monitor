@@ -1,0 +1,25 @@
+# Generated / temporary
+*.tmp
+*.log
+*.bak
+*.cache
+__pycache__/
+.pytest_cache/
+
+# Raw market-data snapshots
+source_snapshot_*.json
+ibkr_snapshot_*.json
+*_snapshot_*.json
+
+# Generated outputs / previews
+output/
+reports/
+artifacts/
+*.html
+
+# Local secrets / sessions
+.env
+.env.*
+*.session
+credentials.*
+secrets.*
