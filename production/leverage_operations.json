@@ -7,7 +7,7 @@
     "manifest_commit": "651ff6645b951bd6f8e9b86bfed3efbb1d64710b",
     "class": "PRODUCTION_MONITORING_ONLY",
     "signal": "SOXX annual_anchored_trend_vol",
-    "scope": "signal_only_no_capital_allocation",
+    "scope": "SOXX_formal_SPY_QQQ_live_test_SMH_context_only",
     "order_authority": "NONE",
     "automatic_replacement": false,
     "current_repository": "loktoto/Leverage_Monitor",
@@ -21,6 +21,11 @@
       "authority": "completed_US_RTH_daily_bars",
       "exact_contracts": {
         "SOXX": 12658194,
+        "SPY": 756733,
+        "QQQ": 320227571,
+        "SMH": 229725622,
+        "SSO": 39622943,
+        "QLD": 39622938,
         "USD": 42808834,
         "SOXL": 73340487
       },
@@ -56,6 +61,15 @@
       "rules": [
         "do_not_query_on_ordinary_hourly_production_runs",
         "cannot_change_SOXX_signal_without_separate_frozen_promotion"
+      ]
+    },
+    "context_validator": {
+      "source": "Longbridge",
+      "authority": "CONTEXT_ONLY_ZERO_FORMAL_AUTHORITY",
+      "rules": [
+        "never_override_IBKR",
+        "never_average_conflicting_sources",
+        "use_for_independent_context_only"
       ]
     }
   },
@@ -104,7 +118,7 @@
     "bounded_challenger_audit": "first_Saturday_after_each_new_US_trading_week",
     "research_branch_policy": "scoped_branch_or_draft_PR_only",
     "promotion_policy": "explicit_later_decision_after_every_frozen_gate_passes",
-    "first_priority": "PR16_SM_H_RSI5_pullback_reclaim_reaudit",
+    "first_priority": "Maintain the four-asset Unified Leverage Board and accumulate clean prospective evidence; no automatic strategy expansion.",
     "research_failures_must_not_block_production": true,
     "ordinary_run_scope": "SOXX_FORMAL_SPY_QQQ_LIVE_TEST_SMH_CONTEXT_ONLY"
   },
