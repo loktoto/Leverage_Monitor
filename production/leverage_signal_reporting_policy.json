@@ -1,8 +1,8 @@
 {
-  "schema_version": 3,
+  "schema_version": 4,
   "status": "PRODUCTION_REPORTING_POLICY",
-  "effective_at": "2026-08-03T11:22:00+08:00",
-  "scope": "hourly_leverage_signal_board",
+  "effective_at": "2026-09-30T10:39:00+08:00",
+  "scope": "daily_1700_HKT_unified_leverage_strategy_journal",
   "order_authority": "NONE",
   "production_signal_logic_unchanged": true,
   "production_manifest": "production/leverage_signal.json",
@@ -12,21 +12,23 @@
     "state": "production/leverage_live_test_state.json",
     "ledger": "production/leverage_live_test_ledger.csv",
     "status": "PRODUCTION_LIVE_TEST_SIGNAL_TRACKING_ONLY",
-    "purpose": "Run validated research signals prospectively and record observed entries, exits and performance without broker order authority.",
+    "purpose": "Operate as a realistic paper-live strategy journal: record what the strategy would OPEN or EXIT using observed executable-side market quotes, compare actual leveraged-product performance with the same-period 1x benchmark, and maintain an auditable repository record without broker order authority.",
     "formal_SOXX_authority_unchanged": true,
     "research_signal_may_activate_live_test": true,
     "formal_promotion_not_required_for_live_test_activation": true,
     "broker_execution_prohibited": true,
     "mandatory_per_run_actions": [
-      "fetch_live_test_policy_state_and_ledger_when_GitHub_is_available",
-      "evaluate_new_completed_RTH_entry_signals_for_possible_activation",
+      "fetch_all_six_production_authority_files_from_loktoto_Leverage_Monitor_main",
+      "recompute_latest_completed_RTH_signal_state",
+      "evaluate_whether_the_strategy_would_OPEN_or_EXIT_without_using_user_portfolio_preferences",
       "record_OPEN_only_after_a_fresh_observed_qualifying_IBKR_RTH_entry_quote",
-      "evaluate_each_OPEN_position_for_exit_or_invalidation",
-      "on_exit_trigger_set_state_EXIT_immediately_even_if_exit_price_is_NA",
-      "allow_future_reentry_as_a_new_test_after_a_new_valid_signal_and_fresh_RTH_entry_quote",
-      "update_state_and_ledger_only_from_reliable_observed_data_or_validated_signal_state_changes",
-      "show_live_test_state_separately_from_formal_trade_authority",
-      "never_claim_a_GitHub_live_test_record_is_a_broker_execution"
+      "record_EXIT_immediately_when_exit_or_invalidation_signal_triggers",
+      "never_backfill_missing_lifecycle_execution_prices",
+      "for_every_OPEN_or_priced_EXIT_compare_actual_leveraged_product_return_with_same_period_1x_underlying_return",
+      "update_state_and_ledger_only_on_genuine_lifecycle_or_required_revalidation_change",
+      "append_a_complete_daily_strategy_audit_entry_to_journal_YYYY_MM_md",
+      "record_methodology_or_policy_changes_in_docs_CHANGELOG_md_when_rules_change",
+      "never_claim_a_strategy_journal_record_is_a_broker_execution"
     ],
     "price_accounting": {
       "long_entry": "ask",
@@ -145,7 +147,7 @@
     },
     "GitHub": {
       "role": "DETERMINISTIC_MODEL_IDENTITY_RESEARCH_EVIDENCE_LIVE_TEST_STATE_AND_AUDIT_LOG",
-      "repository": "loktoto/busan-trip",
+      "repository": "loktoto/Leverage_Monitor",
       "rules": [
         "verify_manifest_commit_and_hash",
         "do_not_promote_research_only_assets_to_formal_authority_automatically",
@@ -203,5 +205,29 @@
     "no_fabrication": true,
     "do_not_open_live_test_when_required_data_is_unavailable": true
   },
-  "lifecycle_override_effective_date": "2026-09-25"
+  "lifecycle_override_effective_date": "2026-09-25",
+  "strategy_journal": {
+    "mode": "PAPER_LIVE_AS_IF_SELF_FUNDED",
+    "user_portfolio_independence": true,
+    "decision_basis": "strategy_rules_and_data_only",
+    "broker_order_authority": "NONE",
+    "schedule": "17:00 Asia/Hong_Kong daily",
+    "required_daily_record": [
+      "as_of_HKT_and_ET",
+      "US_session_and_latest_completed_RTH_date",
+      "source_status_and_retries",
+      "all_six_GitHub_file_SHAs",
+      "SOXX_recomputed_signal_metrics_and_formal_state",
+      "SPY_QQQ_live_test_signal_state",
+      "SMH_confirmation_or_contradiction",
+      "OPEN_EXIT_decision_trace",
+      "actual_vehicle_entry_exit_or_mark_price_when_qualifying",
+      "same_period_1x_benchmark_price_and_return",
+      "leveraged_return",
+      "excess_return_percentage_points",
+      "validation_and_contrary_evidence",
+      "lifecycle_and_repo_updates",
+      "methodology_version"
+    ]
+  }
 }
