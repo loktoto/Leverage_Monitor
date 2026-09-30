@@ -57,11 +57,15 @@ An exit/invalidation trigger changes the strategy state to EXIT immediately.
 
 For a long position, the recorded exit price is the first qualifying fresh IBKR RTH **bid** observed after the trigger.
 
-If no qualifying RTH exit bid is observed:
-- state is still EXIT;
-- exit price is N/A;
-- realized P&L is N/A;
-- no later close, premarket quote, AH quote or retrospective price may be backfilled.
+If a fresh qualifying RTH exit bid was not captured during the original run:
+- state is still EXIT immediately;
+- first attempt an audited historical Level-1 reconstruction;
+- use the first timestamped RTH bid at/after the original eligible time that passes the same spread/quote-integrity gates;
+- prefer IBKR historical Level-1 when available, otherwise Alpaca SIP historical Level-1;
+- label the result `HISTORICAL_QUOTE_RECONSTRUCTION`;
+- if no authoritative archive exists, keep exit price and realized P&L as N/A.
+
+A reconstruction is not arbitrary backfilling: later closes, premarket/AH prices, OHLC bars treated as bid/ask, interpolation, estimates, and cherry-picked favourable quotes remain prohibited.
 
 A later re-entry is always a new trade instance.
 
@@ -71,7 +75,7 @@ The journal acts as if the strategy were self-funded:
 
 - no signal is suppressed because of the user's real holdings or preferences;
 - no discretionary “wait because it feels risky” override is permitted;
-- no retrospective ideal fill is permitted;
+- no retrospective ideal fill is permitted; audited replay of the first qualifying historical Level-1 quote is permitted when the original observation was missed;
 - actual leveraged-product prices must be used;
 - underlying return × leverage is never accepted as a substitute for product return;
 - spreads, stale quotes, missing observations and lifecycle latency are part of the measured strategy reality.
@@ -89,12 +93,16 @@ Primary authority for:
 Each failed required endpoint is retried once.
 
 ### Alpaca
-Independent completed-close parity:
+Independent completed-close parity and historical quote archive.
+
+For close parity:
 1. SIP
 2. delayed_sip
 3. IEX
 
 PASS requires the same completed date and close difference <= 0.20%. Never blend with IBKR.
+
+For missed lifecycle reconstruction, Alpaca SIP historical Level-1 quotes may supply the first qualifying RTH bid/ask when IBKR historical Level-1 is unavailable. Delayed-SIP/IEX are lower-fidelity references and must be labelled explicitly.
 
 ### Longbridge
 Independent contextual validator only. Zero formal signal weight.
@@ -150,3 +158,19 @@ A rule change must:
 4. never rewrite historical trades to make the new rule look better.
 
 Historical records remain evaluated under the rule set that existed when the event was recorded.
+
+
+## 10. Historical quote reconstruction
+
+The 17:00 HKT schedule frequently occurs before US RTH. Therefore lifecycle prices do not have to remain missing merely because the scheduled report ran premarket.
+
+When a strategy action becomes eligible for the next US RTH:
+1. record the signal prospectively at the 17:00 HKT run;
+2. on the next run, query the archived Level-1 record for that eligible RTH session;
+3. deterministically select the first quote that satisfies the original rule and execution gates;
+4. use ask for a long entry and bid for a long exit;
+5. store exact timestamp, source, spread, feed/fidelity and reconstruction time;
+6. compare the leveraged product with the closest same-session 1x quote at the same timestamp;
+7. never choose a later quote because it produces a better result.
+
+This makes the paper-live journal replayable while preserving execution realism.
