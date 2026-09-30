@@ -24,30 +24,18 @@
     ],
     "initial_universe": {
       "SPY": [
-        "SSO",
-        "UPRO",
-        "SPXL"
+        "SSO"
       ],
       "QQQ": [
-        "QLD",
-        "TQQQ"
+        "QLD"
       ],
       "SOXX": [
         "USD",
         "SOXL"
       ],
-      "single_stocks": [
-        "AAPU",
-        "MSFU",
-        "NVDL",
-        "AMZU",
-        "GGLL",
-        "METU",
-        "TSLL",
-        "TSMX"
-      ]
+      "SMH": []
     },
-    "default_vehicle_preference": "Use the lowest leverage product that satisfies the validated research signal unless the signal explicitly validates a higher leverage product."
+    "default_vehicle_preference": "SPY uses SSO for live-test; QQQ uses QLD for live-test; SOXX formal product path uses the currently validated actual-product route recorded by policy/state. SMH has no trade vehicle authority."
   },
   "activation_and_pricing": {
     "daily_signal_timing": "signal_on_completed_close_then_activate_at_next_US_RTH_session",
