@@ -1,5 +1,5 @@
 {
-  "schema_version": 4,
+  "schema_version": 5,
   "status": "PRODUCTION_REPORTING_POLICY",
   "effective_at": "2026-09-30T10:39:00+08:00",
   "scope": "daily_1700_HKT_unified_leverage_strategy_journal",
@@ -23,7 +23,8 @@
       "evaluate_whether_the_strategy_would_OPEN_or_EXIT_without_using_user_portfolio_preferences",
       "record_OPEN_only_after_a_fresh_observed_qualifying_IBKR_RTH_entry_quote",
       "record_EXIT_immediately_when_exit_or_invalidation_signal_triggers",
-      "never_backfill_missing_lifecycle_execution_prices",
+      "when_a_required_RTH_lifecycle_quote_was_missed_reconstruct_the_first_qualifying_quote_from_timestamped_historical_Level1_archive_under_the_reconstruction_policy",
+      "never_substitute_a_later_close_premarket_afterhours_estimate_or_cherry_picked_price_for_a_missing_lifecycle_quote",
       "for_every_OPEN_or_priced_EXIT_compare_actual_leveraged_product_return_with_same_period_1x_underlying_return",
       "update_state_and_ledger_only_on_genuine_lifecycle_or_required_revalidation_change",
       "append_a_complete_daily_strategy_audit_entry_to_journal_YYYY_MM_md",
@@ -35,14 +36,15 @@
       "long_exit": "bid",
       "short_entry": "bid",
       "short_exit": "ask",
-      "first_observed_quote_rule": "FIRST_OBSERVED_NOT_OFFICIAL_OPEN when the exact RTH open quote was not captured"
+      "first_observed_quote_rule": "FIRST_OBSERVED_NOT_OFFICIAL_OPEN when the exact RTH open quote was not captured",
+      "historical_reconstruction": "Allowed only from timestamped historical Level-1 quote records using the original lifecycle rule and spread/integrity gates; label HISTORICAL_QUOTE_RECONSTRUCTION."
     },
     "user_facing_states": [
       "OPEN",
       "EXIT"
     ],
     "no_pending_states": true,
-    "exit_without_quote_rule": "EXIT remains the state; exit price is N/A when no qualifying fresh IBKR RTH exit bid was observed. Never backfill."
+    "exit_without_quote_rule": "EXIT remains the state. If no fresh quote was captured, attempt audited historical Level-1 reconstruction of the first qualifying RTH bid. If no authoritative archive is available, price remains N/A."
   },
   "mandatory_decision_summary": {
     "position": "FIRST_SECTION_IN_EVERY_REPORT",
@@ -146,10 +148,13 @@
       ]
     },
     "Alpaca": {
-      "role": "INDEPENDENT_US_EQUITY_PARITY_AND_CORPORATE_ACTION_CHECK",
+      "role": "INDEPENDENT_US_EQUITY_PARITY_AND_HISTORICAL_LEVEL1_RECONSTRUCTION",
       "rules": [
-        "prefer_completed_SIP_bars",
-        "label_delayed_sip_or_IEX_fallbacks",
+        "prefer_completed_SIP_bars_for_close_parity",
+        "for_missed_lifecycle_quotes_prefer_SIP_historical_Level1_quote_archive",
+        "historical_reconstruction_must_use_first_qualifying_RTH_quote_after_the_eligible_timestamp_and_must_pass_original_spread_integrity_gates",
+        "label_delayed_sip_or_IEX_fallbacks_explicitly",
+        "IEX_only_reconstruction_is_low_fidelity_and_cannot_silently_replace_SIP_NBBO",
         "parity_requires_matching_cutoff_and_close_difference_lte_0.20_percent",
         "never_average_blend_or_splice_with_IBKR"
       ]
