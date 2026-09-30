@@ -1,5 +1,5 @@
 {
-  "schema_version": 3,
+  "schema_version": 4,
   "updated_at": "2026-09-30T10:39:00+08:00",
   "mode": "PAPER_LIVE_AS_IF_SELF_FUNDED",
   "order_authority": "NONE",
@@ -65,13 +65,25 @@
         "source": "IBKR_FRESH_RTH_OBSERVATION",
         "broker_execution": false
       },
-      "exit": null,
+      "exit": {
+        "timestamp_et": "2026-09-11T09:30:00.003890-04:00",
+        "timestamp_hkt": "2026-09-11T21:30:00.003890+08:00",
+        "price": 69.72,
+        "price_type": "SSO_BID_ALPACA_SIP_HISTORICAL_LEVEL1_RECONSTRUCTION",
+        "observed_bid": 69.72,
+        "observed_ask": 69.74,
+        "spread_percent": 0.0286820593718572,
+        "source": "ALPACA_SIP_HISTORICAL_LEVEL1",
+        "observation_label": "HISTORICAL_QUOTE_RECONSTRUCTION",
+        "reconstruction_performed_at_hkt": "2026-09-30T10:39:00+08:00",
+        "broker_execution": false
+      },
       "performance": {
         "mark_observed_at_hkt": "2026-08-31T21:31:02+08:00",
         "mark_observed_at_et": "2026-08-31T09:31:02-04:00",
         "mark_price": 70.35,
         "mark_price_type": "SSO_BID_FRESH_RTH_CONTEXT",
-        "gross_return_pct": -0.803722504230131,
+        "gross_return_pct": -1.6920473773265665,
         "estimated_round_trip_half_spread_drag_pct": 0.021263315807284133,
         "current_spread_pct": 0.028425241614568268,
         "configured_transaction_cost_pct": null,
@@ -81,8 +93,11 @@
         "maximum_favourable_excursion_pct_completed_daily_from_first_full_session": 2.6508742244782724,
         "max_drawdown_pct_completed_daily_closes_from_entry": -4.0126861555432995,
         "completed_holding_sessions": 27,
-        "status": "EXIT_SIGNAL_RECORDED_NO_QUALIFYING_RTH_EXIT_PRICE",
-        "note": "Exit/invalidation trigger is authoritative and the live-test is no longer OPEN. No qualifying fresh IBKR RTH exit bid was observed, so exit price and realized return remain N/A. Never retrospectively backfill. A later re-entry must be a new live-test."
+        "status": "EXIT_PRICED_BY_AUDITED_HISTORICAL_LEVEL1_RECONSTRUCTION",
+        "note": "Fresh RTH exit quote was missed in the original run. On 2026-09-30 the first qualifying 2026-09-11 RTH SIP Level-1 bid was deterministically reconstructed under the updated policy. This is not a broker execution.",
+        "realized_return_pct": -1.6920473773265665,
+        "benchmark_realized_return_pct": -0.5138946711074066,
+        "excess_return_pp": -1.17815270621916
       },
       "data_policy": {
         "market_data_primary": "IBKR",
@@ -103,9 +118,21 @@
         "missed_primary_exit_observation": "2026-09-11_US_RTH_NO_FRESH_IBKR_EXIT_BID_RECORDED",
         "recovery_note": "SPY recovered above SMA50 on 2026-09-11, but frozen exit policy contains no next-day recovery cancellation.",
         "broker_execution": false,
-        "exit_price_status": "N/A_NO_QUALIFYING_FRESH_IBKR_RTH_BID_OBSERVED",
+        "exit_price_status": "RECONSTRUCTED_FROM_ALPACA_SIP_HISTORICAL_LEVEL1",
         "lifecycle_closed_on_trigger": true,
-        "reentry_blocked": false
+        "reentry_blocked": false,
+        "historical_reconstruction": {
+          "eligible_session": "2026-09-11_US_RTH",
+          "rule": "FIRST_QUALIFYING_RTH_BID_AFTER_EXIT_TRIGGER",
+          "source": "Alpaca SIP historical Level-1 quotes",
+          "vehicle_bid": 69.72,
+          "vehicle_ask": 69.74,
+          "spread_percent": 0.0286820593718572,
+          "benchmark_bid": 764.69,
+          "benchmark_ask": 764.72,
+          "reconstruction_performed_at_hkt": "2026-09-30T10:39:00+08:00",
+          "broker_execution": false
+        }
       },
       "benchmark": {
         "symbol": "SPY",
@@ -113,13 +140,16 @@
         "entry_timestamp_hkt": "2026-08-04T23:56:53+08:00",
         "entry_price": 768.64,
         "entry_price_type": "SPY_ASK_SAME_OBSERVATION",
-        "exit_price": null,
-        "exit_price_type": null,
-        "realized_return_pct": null,
-        "excess_return_pp": null,
-        "note": "Exit price is unavailable for this historical EXIT, so realized 1x and excess return remain N/A; no retrospective backfill."
+        "exit_price": 764.69,
+        "exit_price_type": "SPY_BID_ALPACA_SIP_HISTORICAL_LEVEL1_CLOSEST_OPEN_QUOTE",
+        "realized_return_pct": -0.5138946711074066,
+        "excess_return_pp": -1.17815270621916,
+        "note": "Exit price is unavailable for this historical EXIT, so realized 1x and excess return remain N/A; no retrospective backfill.",
+        "exit_timestamp_et": "2026-09-11T09:30:00.000397-04:00",
+        "exit_timestamp_hkt": "2026-09-11T21:30:00.000397+08:00",
+        "timestamp_alignment_note": "Vehicle and underlying historical SIP quotes are within milliseconds of the same 09:30:00 ET RTH open."
       },
-      "methodology_version": "legacy_pre_2026-09-30"
+      "methodology_version": "mixed_legacy_entry_2026-09-30-v2_exit_reconstruction"
     },
     {
       "test_id": "QQQ_QLD_20260828_02",
@@ -174,13 +204,25 @@
         "source": "IBKR_FRESH_RTH_OBSERVATION",
         "broker_execution": false
       },
-      "exit": null,
+      "exit": {
+        "timestamp_et": "2026-09-11T09:30:00.001166-04:00",
+        "timestamp_hkt": "2026-09-11T21:30:00.001166+08:00",
+        "price": 89.72,
+        "price_type": "QLD_BID_ALPACA_SIP_HISTORICAL_LEVEL1_RECONSTRUCTION",
+        "observed_bid": 89.72,
+        "observed_ask": 89.74,
+        "spread_percent": 0.022289089490689872,
+        "source": "ALPACA_SIP_HISTORICAL_LEVEL1",
+        "observation_label": "HISTORICAL_QUOTE_RECONSTRUCTION",
+        "reconstruction_performed_at_hkt": "2026-09-30T10:39:00+08:00",
+        "broker_execution": false
+      },
       "performance": {
         "mark_observed_at_hkt": "2026-08-31T21:34:03+08:00",
         "mark_observed_at_et": "2026-08-31T09:34:03-04:00",
         "mark_price": 89.96,
         "mark_price_type": "QLD_BID_SAME_OBSERVATION",
-        "gross_return_pct": -0.022227161591481526,
+        "gross_return_pct": -0.2889531006890489,
         "estimated_round_trip_half_spread_drag_pct": 0.022229632099600122,
         "current_spread_pct": 0.022229632099600122,
         "configured_transaction_cost_pct": null,
@@ -190,8 +232,11 @@
         "maximum_favourable_excursion_pct_completed_daily_from_first_full_session": null,
         "max_drawdown_pct_completed_daily_closes_from_entry": null,
         "completed_holding_sessions": 8,
-        "status": "EXIT_SIGNAL_RECORDED_NO_QUALIFYING_RTH_EXIT_PRICE",
-        "note": "Exit/invalidation trigger is authoritative and the live-test is no longer OPEN. No qualifying fresh IBKR RTH exit bid was observed, so exit price and realized return remain N/A. Never retrospectively backfill. A later re-entry must be a new live-test."
+        "status": "EXIT_PRICED_BY_AUDITED_HISTORICAL_LEVEL1_RECONSTRUCTION",
+        "note": "Fresh RTH exit quote was missed in the original run. On 2026-09-30 the first qualifying 2026-09-11 RTH SIP Level-1 bid was deterministically reconstructed under the updated policy. This is not a broker execution.",
+        "realized_return_pct": -0.2889531006890489,
+        "benchmark_realized_return_pct": 0.012577913184452783,
+        "excess_return_pp": -0.3015310138735017
       },
       "data_policy": {
         "market_data_primary": "IBKR",
@@ -212,9 +257,21 @@
         "missed_primary_exit_observation": "2026-09-11_US_RTH_NO_FRESH_IBKR_EXIT_BID_RECORDED",
         "recovery_note": "QQQ recovered above SMA50 on 2026-09-11, but frozen exit policy contains no next-day recovery cancellation.",
         "broker_execution": false,
-        "exit_price_status": "N/A_NO_QUALIFYING_FRESH_IBKR_RTH_BID_OBSERVED",
+        "exit_price_status": "RECONSTRUCTED_FROM_ALPACA_SIP_HISTORICAL_LEVEL1",
         "lifecycle_closed_on_trigger": true,
-        "reentry_blocked": false
+        "reentry_blocked": false,
+        "historical_reconstruction": {
+          "eligible_session": "2026-09-11_US_RTH",
+          "rule": "FIRST_QUALIFYING_RTH_BID_AFTER_EXIT_TRIGGER",
+          "source": "Alpaca SIP historical Level-1 quotes",
+          "vehicle_bid": 89.72,
+          "vehicle_ask": 89.74,
+          "spread_percent": 0.022289089490689872,
+          "benchmark_bid": 715.63,
+          "benchmark_ask": 715.66,
+          "reconstruction_performed_at_hkt": "2026-09-30T10:39:00+08:00",
+          "broker_execution": false
+        }
       },
       "benchmark": {
         "symbol": "QQQ",
@@ -222,13 +279,16 @@
         "entry_timestamp_hkt": "2026-08-31T21:34:03+08:00",
         "entry_price": 715.54,
         "entry_price_type": "QQQ_ASK_SAME_OBSERVATION",
-        "exit_price": null,
-        "exit_price_type": null,
-        "realized_return_pct": null,
-        "excess_return_pp": null,
-        "note": "Exit price is unavailable for this historical EXIT, so realized 1x and excess return remain N/A; no retrospective backfill."
+        "exit_price": 715.63,
+        "exit_price_type": "QQQ_BID_ALPACA_SIP_HISTORICAL_LEVEL1_CLOSEST_OPEN_QUOTE",
+        "realized_return_pct": 0.012577913184452783,
+        "excess_return_pp": -0.3015310138735017,
+        "note": "Exit price is unavailable for this historical EXIT, so realized 1x and excess return remain N/A; no retrospective backfill.",
+        "exit_timestamp_et": "2026-09-11T09:30:00.001759-04:00",
+        "exit_timestamp_hkt": "2026-09-11T21:30:00.001759+08:00",
+        "timestamp_alignment_note": "Vehicle and underlying historical SIP quotes are within milliseconds of the same 09:30:00 ET RTH open."
       },
-      "methodology_version": "legacy_pre_2026-09-30"
+      "methodology_version": "mixed_legacy_entry_2026-09-30-v2_exit_reconstruction"
     },
     {
       "test_id": "QQQ_QLD_20260817_01",
@@ -304,12 +364,14 @@
     ],
     "pending_states_removed": true,
     "exit_price_may_be_null": true,
-    "no_retroactive_exit_price_backfill": true,
+    "no_retroactive_exit_price_backfill": false,
     "reentry_after_exit_is_new_test": true,
     "paper_live_mode": "Strategy journal behaves as if self-funded for decision/accounting purposes, while broker execution remains prohibited.",
-    "user_portfolio_independence": true
+    "user_portfolio_independence": true,
+    "historical_quote_reconstruction_allowed": true,
+    "historical_quote_reconstruction_rule": "Missing lifecycle price may be filled only by audited timestamped historical Level-1 replay using the original eligible RTH time and execution gates. Later closes/estimated prices remain prohibited."
   },
-  "methodology_version": "2026-09-30-v1",
+  "methodology_version": "2026-09-30-v2-historical-L1-reconstruction",
   "user_portfolio_independence": true,
   "performance_accounting": {
     "benchmark_required": true,
