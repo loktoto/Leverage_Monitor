@@ -58,12 +58,13 @@ If a valid exit bid was observed, show realized:
 - holding period;
 - exit reason.
 
-If no qualifying exit price was observed:
-- exit price = N/A;
-- realized leveraged return = N/A;
-- realized 1x comparison = N/A for realized-trade accounting;
-- excess return = N/A;
-- never backfill.
+If no qualifying exit price was captured live:
+1. attempt audited historical Level-1 reconstruction of the first qualifying RTH bid;
+2. use exact timestamp/source/spread and label `HISTORICAL_QUOTE_RECONSTRUCTION`;
+3. use the closest same-session 1x bid at the same timestamp for the benchmark;
+4. if no authoritative qualifying archive exists, then exit price, realized return and excess remain N/A.
+
+Never replace a missing quote with a later close, premarket/AH quote, OHLC approximation, interpolation or favourable price selection.
 
 ## Cumulative accounting
 
@@ -81,3 +82,12 @@ Unpriced EXIT records remain lifecycle evidence but are excluded from realized-r
 ## Costs
 
 Observed entry ask / current-or-exit bid naturally includes quoted spread crossing. Commission, financing and other costs are included only when explicitly configured in policy. Never invent a cost assumption merely to fill a field.
+
+
+## Historical reconstruction accounting
+
+A reconstructed lifecycle quote is valid for performance accounting only when it is a timestamped Level-1 market record selected mechanically from the original eligible RTH time.
+
+Fresh live observation remains preferred. Historical SIP Level-1 reconstruction is considered a deterministic replay, not a broker execution.
+
+Source/fidelity must be shown in the ledger.
