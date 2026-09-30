@@ -1,7 +1,7 @@
 {
-  "schema_version": 5,
+  "schema_version": 6,
   "status": "PRODUCTION_REPORTING_POLICY",
-  "effective_at": "2026-09-30T10:39:00+08:00",
+  "effective_at": "2026-09-30T11:10:00+08:00",
   "scope": "daily_1700_HKT_unified_leverage_strategy_journal",
   "order_authority": "NONE",
   "production_signal_logic_unchanged": true,
@@ -181,6 +181,25 @@
         "never_average_with_IBKR_or_Alpaca",
         "use_only_for_independent_context_quote_turnover_or_close_validation"
       ]
+    },
+    "multi_source_exhaustion_rule": {
+      "principle": "Never mark a required field N/A after a single-source failure. Exhaust every applicable source class for that exact field first.",
+      "exact_US_equity_lifecycle_bid_ask": [
+        "IBKR fresh Level-1 when contemporaneously available",
+        "IBKR timestamped historical Level-1 only if exposed by the connector/runtime",
+        "Alpaca SIP historical Level-1"
+      ],
+      "corroboration_only_for_US_equity_lifecycle_price": [
+        "IBKR historical OHLCV/minute bars",
+        "Longbridge historical intraday OHLCV/minute bars",
+        "Longbridge current quote/depth/trades when time-aligned",
+        "Alpaca trades/bars"
+      ],
+      "cross_asset_context_only": [
+        "Binance BTC/ETH spot/futures/funding/basis/open-interest"
+      ],
+      "n_a_rule": "N/A is allowed only when all applicable exact-price sources for that field are unavailable or fail integrity gates. Corroboration/context sources cannot be substituted as an exact bid/ask fill.",
+      "no_blending": true
     }
   },
   "reporting_fail_safe": {
@@ -188,7 +207,8 @@
     "degraded_field_text": "N/A — IBKR未取得可靠資料",
     "one_failed_source_must_not_break_other_assets": true,
     "no_fabrication": true,
-    "do_not_open_live_test_when_required_data_is_unavailable": true
+    "do_not_open_live_test_when_required_data_is_unavailable": true,
+    "NA_only_after_applicable_source_exhaustion": true
   },
   "lifecycle_override_effective_date": "2026-09-25",
   "strategy_journal": {
