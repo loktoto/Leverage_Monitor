@@ -30,12 +30,19 @@
         "QLD"
       ],
       "SOXX": [
-        "USD",
-        "SOXL"
+        "USD"
       ],
       "SMH": []
     },
-    "default_vehicle_preference": "SPY uses SSO for live-test; QQQ uses QLD for live-test; SOXX formal product path uses the currently validated actual-product route recorded by policy/state. SMH has no trade vehicle authority."
+    "default_vehicle_preference": "SPY live-test uses SSO; QQQ live-test uses QLD; SOXX formal leveraged-product route is exclusively USD (2x tactical cross-index proxy), effective prospectively from 2026-10-11 HKT; SMH has no trade vehicle authority.",
+    "canonical_SOXX_vehicle": {
+      "symbol": "USD",
+      "route": "SOXX_USD_2X",
+      "effective_date_hkt": "2026-10-11",
+      "lifecycle_rule": "No retrospective OPEN or price backfill solely because the chosen route has historical quotes. New position requires a new prospective valid completed-RTH signal and all activation/Level-1 integrity requirements.",
+      "alternative_product": "SOXL remains approved historical research evidence only, not the canonical route",
+      "tracking_risk": "USD tracks a different semiconductor index than SOXX. Measure actual USD and same-period SOXX prices, never pretend the return is SOXX x2."
+    }
   },
   "activation_and_pricing": {
     "daily_signal_timing": "signal_on_completed_close_then_activate_at_next_US_RTH_session",
@@ -117,7 +124,7 @@
     "benchmark_pairs": {
       "SPY_SSO": "SSO_vs_SPY",
       "QQQ_QLD": "QLD_vs_QQQ",
-      "SOXX_formal": "recorded_actual_leveraged_vehicle_vs_SOXX"
+      "SOXX_formal": "USD_vs_SOXX"
     },
     "lifecycle_price_sides": {
       "long_vehicle_entry": "ask",
@@ -146,7 +153,33 @@
       "win_count",
       "loss_count"
     ],
-    "missing_price_rule": "If a fresh lifecycle quote was missed, first attempt audited timestamped historical Level-1 reconstruction under the reconstruction policy. If no authoritative qualifying archive exists, realized P&L and excess return remain N/A. Never substitute a later close, premarket, after-hours or estimated price."
+    "missing_price_rule": "If a fresh lifecycle quote was missed, first attempt audited timestamped historical Level-1 reconstruction under the reconstruction policy. If no authoritative qualifying archive exists, realized P&L and excess return remain N/A. Never substitute a later close, premarket, after-hours or estimated price.",
+    "mandatory_three_vehicle_scoreboard": {
+      "order": [
+        "USD",
+        "QLD",
+        "SSO"
+      ],
+      "frequency": "every_run",
+      "independent_of_asset_decision_table": true,
+      "columns": [
+        "vehicle",
+        "signal_underlying",
+        "strategy_lifecycle_state_or_no_trade",
+        "entry_ask_and_timestamp",
+        "latest_eligible_RTH_bid_or_exit_bid_and_timestamp",
+        "actual_vehicle_return_pct",
+        "same_period_underlying_1x_return_pct",
+        "excess_return_pp",
+        "realized_or_unrealized",
+        "historical_shadow_if_applicable",
+        "source_and_data_quality"
+      ],
+      "missing_trade_rule": "If the canonical state/ledger lacks a valid vehicle OPEN, mark official P&L N/A (no recorded OPEN). May show a clearly separate historical shadow reference but never call it official strategy P&L.",
+      "missing_quote_rule": "If a valid marked OPEN has no qualified current/latest completed RTH bid, use N/A for current P&L and state the last verified mark date; never substitute OHLC.",
+      "lifecycle_policy": "Never imply that historical quote reconstruction is a real execution or backdate a trade merely because the USD route was selected later.",
+      "open_trade_validation": "The 2026-10-02 SSO replay appears in the 2026-10-05 audit journal but is not reflected in canonical state/ledger; disclose the mismatch until reconciled."
+    }
   },
   "github_audit_rules": {
     "state_file": "production/leverage_live_test_state.json",
