@@ -178,7 +178,7 @@
       "missing_trade_rule": "If the canonical state/ledger lacks a valid vehicle OPEN, mark official P&L N/A (no recorded OPEN). May show a clearly separate historical shadow reference but never call it official strategy P&L.",
       "missing_quote_rule": "If a valid marked OPEN has no qualified current/latest completed RTH bid, use N/A for current P&L and state the last verified mark date; never substitute OHLC.",
       "lifecycle_policy": "Never imply that historical quote reconstruction is a real execution or backdate a trade merely because the USD route was selected later.",
-      "open_trade_validation": "The 2026-10-02 SSO replay appears in the 2026-10-05 audit journal but is not reflected in canonical state/ledger; disclose the mismatch until reconciled."
+      "open_trade_validation": "Audited SSO #2 2026-10-02 SIP OPEN has been reconciled into production state and ledger on 2026-10-11 HKT. Every run must re-fetch and confirm canonical OPEN/EXIT independently; do not reuse a stale mark as current."
     }
   },
   "github_audit_rules": {
