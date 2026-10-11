@@ -50,7 +50,21 @@
         "route": "SOXX_SOXL_3X",
         "warning": "SOXL has a 3x daily objective and material path dependence; use actual SOXL adjusted prices."
       }
-    ]
+    ],
+    "canonical_leveraged_vehicle": {
+      "symbol": "USD",
+      "route": "SOXX_USD_2X",
+      "status": "PROSPECTIVE_POLICY_SELECTION",
+      "effective_date_hkt": "2026-10-11",
+      "selection_basis": "explicit_strategy_configuration_selection",
+      "underlying_signal_symbol": "SOXX",
+      "vehicle_daily_objective": "2x Dow Jones U.S. Semiconductors Index",
+      "benchmark_warning": "USD is a cross-index tactical proxy for SOXX; tracking/index-basis differences and daily reset/path dependence must be disclosed.",
+      "accounting": "Use actual USD ask on qualified paper-live OPEN and actual USD bid on mark/EXIT; compare with same-period SOXX ask/bid. Never estimate USD by SOXX return multiplied by two.",
+      "lifecycle_guardrail": "Product selection does NOT retrospectively create a 2026-10-01 OPEN. Historical quotes from before route selection may be shown only as explicitly labelled shadow references. Require a prospective valid completed-RTH lifecycle event and all original validation/execution gates before OPEN.",
+      "formal_model_changed": false,
+      "order_authority": "NONE"
+    }
   },
   "promotion_evidence": {
     "signal_level_vs_SOXX_buy_hold": {
