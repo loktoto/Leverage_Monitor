@@ -91,3 +91,15 @@ A reconstructed lifecycle quote is valid for performance accounting only when it
 Fresh live observation remains preferred. Historical SIP Level-1 reconstruction is considered a deterministic replay, not a broker execution.
 
 Source/fidelity must be shown in the ledger.
+
+## Mandatory USD / QLD / SSO product scoreboard (effective 2026-10-11 HKT)
+
+Every daily Unified Leverage Decision Board includes one separate table of **exactly three rows** in this order:
+
+| Vehicle | Benchmark | Price/accounting convention |
+|---|---|---|
+| USD (canonical SOXX leveraged route) | SOXX | Recorded USD entry ask and current/exit bid compared with same-period SOXX ask/bid; disclose cross-index tracking mismatch |
+| QLD | QQQ | Recorded QLD ask-to-bid compared with QQQ ask-to-bid |
+| SSO | SPY | Recorded SSO ask-to-bid compared with SPY ask-to-bid |
+
+For each row include lifecycle status or no recorded OPEN, timestamps, actual vehicle return, matching 1x return, excess pp, source/fidelity, and whether realized or unrealized. If not opened, leave official P&L N/A; do not infer it from a theoretical 2x/3x return. The 2026-10-01 USD historical SIP quote replay predates prospective route selection and is **shadow only**, not an OPEN. No costs are invented. Realized/OPEN metrics and full-portfolio capital-weighted performance remain distinct.
