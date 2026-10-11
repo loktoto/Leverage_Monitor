@@ -264,7 +264,7 @@
     ],
     "report_outcomes_without_price": "Show N/A with reason; never omit a ticker.",
     "no_backdating": "USD designated from 2026-10-11 HKT; 2026-10-01 historical quotes are SHADOW reference only, not an official USD trade.",
-    "reconcile_note": "SSO #2 October 2 OPEN appears in October 5 journal, not state/ledger; explicitly mark audit-vs-ledger discrepancy until reconciled.",
+    "reconcile_note": "SSO #2 paper-live OPEN on 2026-10-02 is now recorded in state and ledger (reconciled 2026-10-11); report canonical state and reconcile future journal-vs-ledger discrepancies if any.",
     "format_invariance": "Keep the four-row asset decision table and at most two SPY/QQQ live-test lifecycle rows; insert a separate 3-row product performance table.",
     "independence": "Strategy data only; do not use user's real account, preferences, exposure or capital to determine strategy action."
   }
