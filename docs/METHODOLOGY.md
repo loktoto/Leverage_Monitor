@@ -174,3 +174,11 @@ When a strategy action becomes eligible for the next US RTH:
 7. never choose a later quote because it produces a better result.
 
 This makes the paper-live journal replayable while preserving execution realism.
+
+## 11. Canonical SOXX leveraged vehicle — USD (effective 2026-10-11 HKT)
+
+The SOXX formal signal formula and entry/exit crosses remain unchanged. The sole **prospective** canonical leveraged-product route is **USD** (2x daily Dow Jones U.S. Semiconductors Index). SOXL remains a historical research alternative, not the selected production route. Because USD does not track the identical index as SOXX, never claim USD return is exactly twice SOXX; use executable-side actual USD price versus same-period SOXX 1x quotes and flag basis, daily-reset and path-dependence risks.
+
+The earlier formal 2026-09-30 signal and 2026-10-01 historical USD quotes are NOT automatically an OPEN. Historical quotes predating this selection may only be shown as distinctly labelled shadow references. A new canonical USD OPEN requires a new eligible prospective completed-RTH signal, validation and the first qualifying RTH ask under existing lifecycle policy. No retrospective best-price selection or broker order is allowed.
+
+**Mandatory every-run three-product performance board:** exactly three rows, ordered USD / QLD / SSO, with lifecycle state or "no recorded OPEN", entry ask, latest eligible RTH mark bid/exit bid, actual product return, matching 1x SOXX/QQQ/SPY return, excess pp, data timestamp/source, and realized/unrealized/N/A status. Keep the separate four-row asset decision table and SPY/QQQ lifecycle table unchanged in shape. Never omit a product just because it has no valid trade; mark official P&L N/A.
