@@ -1,9 +1,91 @@
 {
   "schema_version": 4,
-  "updated_at": "2026-09-30T10:39:00+08:00",
+  "updated_at": "2026-10-11T23:32:10+08:00",
   "mode": "PAPER_LIVE_AS_IF_SELF_FUNDED",
   "order_authority": "NONE",
-  "active_tests": [],
+  "active_tests": [
+    {
+      "test_id": "SPY_SSO_20261001_02",
+      "underlying": "SPY",
+      "vehicle": "SSO",
+      "direction": "LONG",
+      "state": "OPEN",
+      "signal": {
+        "signal_date": "2026-10-01",
+        "decision": "ENTER_LEVERAGE",
+        "authority": "PRODUCTION_LIVE_TEST",
+        "completed_close": 763.99,
+        "SMA50": 763.073,
+        "reason": "POST_EXIT_FRESH_REENTRY_ABOVE_SMA50",
+        "validation_status": "PASSED_AS_RECORDED_IN_2026_10_05_AUDIT",
+        "audit_source": "journal/2026-10.md#2026-10-05"
+      },
+      "activation": {
+        "eligible_session": "2026-10-02_US_RTH",
+        "entry_rule": "First qualifying RTH SSO ask with spread <=0.15%, integrity and halt gates; historical SIP Level-1 reconstruction was first audited 2026-10-05",
+        "status": "ACTIVATED"
+      },
+      "invalidation": {
+        "primary": "SPY completed RTH close below then-current SMA50",
+        "risk": "SPY RV40 above 0.20",
+        "exit_pricing": "First qualifying RTH SSO bid after completed-signal trigger"
+      },
+      "entry": {
+        "timestamp_et": "2026-10-02T09:30:00.000833-04:00",
+        "timestamp_hkt": "2026-10-02T21:30:00.000833+08:00",
+        "price": 70.76,
+        "price_type": "SSO_ASK_ALPACA_SIP_HISTORICAL_LEVEL1_RECONSTRUCTION",
+        "vehicle_bid": 70.74,
+        "vehicle_ask": 70.76,
+        "spread_percent": 0.028268551236763577,
+        "observation_label": "HISTORICAL_QUOTE_RECONSTRUCTION",
+        "source": "ALPACA_SIP_HISTORICAL_LEVEL1",
+        "feed": "SIP",
+        "reconstruction_first_audited_hkt": "2026-10-05T17:03:09+08:00",
+        "benchmark_alignment_ms": 0.793,
+        "broker_execution": false
+      },
+      "exit": null,
+      "benchmark": {
+        "symbol": "SPY",
+        "entry_timestamp_et": "2026-10-02T09:30:00.001626-04:00",
+        "entry_price": 770.58,
+        "entry_price_type": "SPY_ASK_ALPACA_SIP_HISTORICAL_LEVEL1",
+        "latest_mark_timestamp_et": "2026-10-09T15:59:59.922378-04:00",
+        "latest_mark_bid": 778.52,
+        "latest_mark_price_type": "SPY_BID_ALPACA_SIP_HISTORICAL_LEVEL1",
+        "timestamp_alignment_ms": -0.002,
+        "unrealized_return_pct": 1.0303926912195838
+      },
+      "performance": {
+        "status": "OPEN_MARK_TO_BID_UNREALIZED",
+        "latest_completed_rth_date": "2026-10-09",
+        "mark_timestamp_et": "2026-10-09T15:59:59.922380-04:00",
+        "mark_price": 72.12,
+        "mark_price_type": "SSO_BID_ALPACA_SIP_HISTORICAL_LEVEL1",
+        "gross_return_pct": 1.921989824759751,
+        "benchmark_unrealized_return_pct": 1.0303926912195838,
+        "excess_return_pp": 0.8915971335401673,
+        "completed_holding_sessions": 6,
+        "realized_return_pct": null,
+        "net_return_pct": null,
+        "net_return_note": "Commission/financing not configured. Quoted entry ask and mark bid include spread crossing; no broker execution."
+      },
+      "data_policy": {
+        "market_data_primary": "IBKR",
+        "historical_quote_reconstruction": "ALPACA_SIP_LEVEL1",
+        "no_raw_licensed_data_committed": true,
+        "no_account_or_order_data_committed": true,
+        "simulated_or_observed_record_not_broker_execution": true
+      },
+      "audit": {
+        "original_journal_date": "2026-10-05",
+        "production_reconciled_at_hkt": "2026-10-11T23:32:10+08:00",
+        "purpose": "Reconcile audited 2026-10-02 first-qualifying RTH quote from prior published journal into canonical state/ledger without altering timestamp or price."
+      },
+      "methodology_version": "2026-09-30-v2-historical-L1-reconstruction"
+    }
+  ],
   "closed_tests": [
     {
       "test_id": "SPY_SSO_20260731_01",
