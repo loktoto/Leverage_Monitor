@@ -23,3 +23,11 @@
 - Later closes, premarket/AH quotes, OHLC approximations, interpolation and cherry-picked prices remain prohibited.
 - Reconstructed records are explicitly labelled and are not broker executions.
 - Reconstructed the two previously unpriced 2026-09-11 exits from Alpaca SIP Level-1 records.
+
+## 2026-10-11 — SOXX canonical USD route and three-product daily performance
+
+- Selected **USD** as the single prospective canonical leveraged ETF for SOXX, effective 2026-10-11 HKT. SOXL remains a research alternative only.
+- The formal SOXX completed-RTH SMA/RV/EWM signal and historical entry/exit thresholds remain unchanged.
+- Explicitly prohibit retrospectively declaring the 2026-10-01 USD shadow quote to be an official OPEN after the later route selection.
+- Mandate the three-row **USD / QLD / SSO** actual-product performance board in every leverage report. Show matching SOXX/QQQ/SPY 1x returns, excess pp and realized/OPEN/N/A classification.
+- USD tracks a different semiconductor index than SOXX; this basis mismatch and daily-reset path risk must be disclosed. No broker-order authority granted.
