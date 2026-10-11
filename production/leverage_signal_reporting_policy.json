@@ -26,6 +26,7 @@
       "when_a_required_RTH_lifecycle_quote_was_missed_reconstruct_the_first_qualifying_quote_from_timestamped_historical_Level1_archive_under_the_reconstruction_policy",
       "never_substitute_a_later_close_premarket_afterhours_estimate_or_cherry_picked_price_for_a_missing_lifecycle_quote",
       "for_every_OPEN_or_priced_EXIT_compare_actual_leveraged_product_return_with_same_period_1x_underlying_return",
+      "always_show_USD_QLD_SSO_three_row_product_performance_scoreboard_with_realized_unrealized_or_NA_states",
       "update_state_and_ledger_only_on_genuine_lifecycle_or_required_revalidation_change",
       "append_a_complete_daily_strategy_audit_entry_to_journal_YYYY_MM_md",
       "record_methodology_or_policy_changes_in_docs_CHANGELOG_md_when_rules_change",
@@ -234,5 +235,37 @@
       "lifecycle_and_repo_updates",
       "methodology_version"
     ]
+  },
+  "mandatory_three_vehicle_performance": {
+    "mandatory": true,
+    "position": "AFTER_FOUR_ASSET_DECISION_TABLE_OR_LIVE_TEST_TABLE",
+    "rows": [
+      "USD",
+      "QLD",
+      "SSO"
+    ],
+    "row_count": 3,
+    "source_authority": "production/leverage_live_test_policy.json performance_accounting.mandatory_three_vehicle_scoreboard",
+    "vehicle_underlying_pairs": {
+      "USD": "SOXX",
+      "QLD": "QQQ",
+      "SSO": "SPY"
+    },
+    "required_columns": [
+      "Vehicle",
+      "State or no recorded OPEN",
+      "Entry ask",
+      "Latest bid or exit bid",
+      "Leveraged-product P&L",
+      "1x P&L",
+      "Excess pp",
+      "Price/date/source",
+      "Realized vs unrealized vs N/A"
+    ],
+    "report_outcomes_without_price": "Show N/A with reason; never omit a ticker.",
+    "no_backdating": "USD designated from 2026-10-11 HKT; 2026-10-01 historical quotes are SHADOW reference only, not an official USD trade.",
+    "reconcile_note": "SSO #2 October 2 OPEN appears in October 5 journal, not state/ledger; explicitly mark audit-vs-ledger discrepancy until reconciled.",
+    "format_invariance": "Keep the four-row asset decision table and at most two SPY/QQQ live-test lifecycle rows; insert a separate 3-row product performance table.",
+    "independence": "Strategy data only; do not use user's real account, preferences, exposure or capital to determine strategy action."
   }
 }
