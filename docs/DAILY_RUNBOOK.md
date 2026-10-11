@@ -55,3 +55,9 @@ This is an audited reconstruction, not an invented fill. Later closes, premarket
 ## User-facing state vocabulary
 
 Use only `OPEN` and `EXIT` for trade lifecycle. Audit-only outcomes such as DATA_CONFLICT may appear as data-quality labels, not as a third trade state.
+
+## Canonical vehicle and compulsory product performance (effective 2026-10-11 HKT)
+
+SOXX's selected leveraged-product route is **USD only**, prospective from 2026-10-11. Re-read `production/leverage_signal.json` and `production/leverage_live_test_policy.json` every run. Do not open USD retroactively from 2026-10-01 merely because eligible historical SIP quotes exist; await a prospective qualifying lifecycle event.
+
+After the four-asset decision table (and the max-two live-test lifecycle table), **always show a separate three-row USD / QLD / SSO performance scoreboard**. For each vehicle, label OPEN or EXIT where applicable, or say "no recorded OPEN"; show exact entry ask and mark/exit bid, matching SOXX/QQQ/SPY 1x figures, leveraged-product return, excess pp, timestamp/source/fidelity and realized versus unrealized. When no canonical OPEN exists, official P&L must be N/A; optional pre-selection shadow figures must be identified as hypothetical. Disclose discrepancies between an audited journal lifecycle and live-test state/ledger until reconciled.
