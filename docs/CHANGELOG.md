@@ -38,3 +38,10 @@
 - Updated the production operations schedule, reporting scope, daily runbook and methodology's timing notes to match.
 - During US daylight saving time 22:00 HKT = 10:00 ET (RTH); during US standard time 22:00 HKT = 09:00 ET (before RTH). A daily completed-RTH signal remains authoritative only after that RTH session has closed.
 - No change to SOXX formal formula, SPY/QQQ test signals, lifecycle quote integrity, product selection, portfolio independence or broker-order prohibition.
+
+## 2026-10-12 — 22:31 HKT schedule and evidence-based charting
+
+- Updated daily Unified Leverage Board exact schedule to **22:31 Asia/Hong_Kong**, effective 2026-10-13. 22:31 HKT equals 10:31 ET in US daylight time and 09:31 ET in standard time, ordinarily within US RTH on trading days.
+- Updated operations and reporting policy and methodology/runbook timing notes. Completed US RTH closes remain the ONLY formal signal cutoff, regardless of intraday quotes.
+- Added supplementary visual presentation: SOXX E/1x cross chart, four-asset normalized completed-RTH trends, and recorded leveraged-product versus matching 1x return chart when valid. Charts must not use fabricated series, substitute for tables, or mix incomplete and completed daily data.
+- SOXX formula, 2026-10-11 USD prospective route, SPY/QQQ lifecycle, user-portfolio independence, historical Level-1 reconstruction, and no-broker-order rule are unchanged.
