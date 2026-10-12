@@ -2,7 +2,7 @@
   "schema_version": 6,
   "status": "PRODUCTION_REPORTING_POLICY",
   "effective_at": "2026-09-30T11:10:00+08:00",
-  "scope": "daily_2200_HKT_unified_leverage_strategy_journal",
+  "scope": "daily_2231_HKT_unified_leverage_strategy_journal",
   "order_authority": "NONE",
   "production_signal_logic_unchanged": true,
   "production_manifest": "production/leverage_signal.json",
@@ -217,7 +217,7 @@
     "user_portfolio_independence": true,
     "decision_basis": "strategy_rules_and_data_only",
     "broker_order_authority": "NONE",
-    "schedule": "22:00 Asia/Hong_Kong daily",
+    "schedule": "22:31 Asia/Hong_Kong daily",
     "required_daily_record": [
       "as_of_HKT_and_ET",
       "US_session_and_latest_completed_RTH_date",
@@ -267,5 +267,18 @@
     "reconcile_note": "SSO #2 paper-live OPEN on 2026-10-02 is now recorded in state and ledger (reconciled 2026-10-11); report canonical state and reconcile future journal-vs-ledger discrepancies if any.",
     "format_invariance": "Keep the four-row asset decision table and at most two SPY/QQQ live-test lifecycle rows; insert a separate 3-row product performance table.",
     "independence": "Strategy data only; do not use user's real account, preferences, exposure or capital to determine strategy action."
+  },
+  "visualization_policy": {
+    "effective_date_hkt": "2026-10-12",
+    "source_grounded_only": true,
+    "minimum_when_complete_data": [
+      "SOXX exposure E against 1.0x threshold",
+      "Completed-RTH normalized five-to-twenty session comparative line chart for SOXX SPY QQQ SMH",
+      "Actual leveraged product returns versus exact same-period 1x comparator"
+    ],
+    "no_chart_if_data_missing": true,
+    "never_blend_live_intraday_with_completed_RTH": true,
+    "preserve_required_tables": true,
+    "charts_are_supplementary_not_signal_authority": true
   }
 }
