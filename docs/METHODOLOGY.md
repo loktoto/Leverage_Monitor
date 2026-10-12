@@ -132,7 +132,7 @@ If required validation for a new entry is unavailable, final confidence is cappe
 
 ## 8. Daily audit record
 
-Every 17:00 HKT run writes a journal entry containing:
+Every 22:00 HKT run writes a journal entry containing:
 
 - exact HKT/ET timestamps and US session;
 - latest completed RTH date;
@@ -162,10 +162,10 @@ Historical records remain evaluated under the rule set that existed when the eve
 
 ## 10. Historical quote reconstruction
 
-The 17:00 HKT schedule frequently occurs before US RTH. Therefore lifecycle prices do not have to remain missing merely because the scheduled report ran premarket.
+The 22:00 HKT schedule is generally during US RTH in daylight-saving months (10:00 ET), but before RTH in standard-time months (09:00 ET). Therefore lifecycle prices do not have to remain missing merely because the scheduled report ran before the eligible RTH session.
 
 When a strategy action becomes eligible for the next US RTH:
-1. record the signal prospectively at the 17:00 HKT run;
+1. record the signal prospectively at the 22:00 HKT run;
 2. on the next run, query the archived Level-1 record for that eligible RTH session;
 3. deterministically select the first quote that satisfies the original rule and execution gates;
 4. use ask for a long entry and bid for a long exit;
