@@ -1,4 +1,4 @@
-# Daily Runbook — 17:00 HKT
+# Daily Runbook — 22:00 HKT
 
 ## Purpose
 
@@ -27,7 +27,7 @@ Run the strategy journal once per day and publish the Unified Leverage Decision 
 
 ## Important timing limitation
 
-17:00 HKT is normally before US RTH during daylight-saving months. A 17:00 run must **not** manufacture an RTH entry or exit. If the strategy action becomes eligible for a later RTH session, the journal records the signal prospectively. A later run should then replay the timestamped historical Level-1 archive and recover the first qualifying RTH bid/ask when an authoritative archive is available.
+22:00 HKT corresponds to 10:00 ET during US daylight saving time (inside RTH), and 09:00 ET during US standard time (before RTH). A 22:00 run must **not** manufacture an RTH entry or exit when the eligible RTH session has not started. If the strategy action becomes eligible for a later RTH session, the journal records the signal prospectively. A later run should then replay the timestamped historical Level-1 archive and recover the first qualifying RTH bid/ask when an authoritative archive is available.
 
 This is an audited reconstruction, not an invented fill. Later closes, premarket/AH prices, OHLC approximations, interpolation or cherry-picked quotes are prohibited.
 
