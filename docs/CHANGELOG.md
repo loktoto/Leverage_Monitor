@@ -31,3 +31,10 @@
 - Explicitly prohibit retrospectively declaring the 2026-10-01 USD shadow quote to be an official OPEN after the later route selection.
 - Mandate the three-row **USD / QLD / SSO** actual-product performance board in every leverage report. Show matching SOXX/QQQ/SPY 1x returns, excess pp and realized/OPEN/N/A classification.
 - USD tracks a different semiconductor index than SOXX; this basis mismatch and daily-reset path risk must be disclosed. No broker-order authority granted.
+
+## 2026-10-12 — Operational schedule change to 22:00 HKT
+
+- Rescheduled the existing `Unified Leverage Board` daily automation from 17:00 to **22:00 Asia/Hong_Kong**, effective from 2026-10-13.
+- Updated the production operations schedule, reporting scope, daily runbook and methodology's timing notes to match.
+- During US daylight saving time 22:00 HKT = 10:00 ET (RTH); during US standard time 22:00 HKT = 09:00 ET (before RTH). A daily completed-RTH signal remains authoritative only after that RTH session has closed.
+- No change to SOXX formal formula, SPY/QQQ test signals, lifecycle quote integrity, product selection, portfolio independence or broker-order prohibition.
