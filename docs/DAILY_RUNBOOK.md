@@ -1,4 +1,4 @@
-# Daily Runbook — 22:00 HKT
+# Daily Runbook — 22:31 HKT
 
 ## Purpose
 
@@ -27,9 +27,13 @@ Run the strategy journal once per day and publish the Unified Leverage Decision 
 
 ## Important timing limitation
 
-22:00 HKT corresponds to 10:00 ET during US daylight saving time (inside RTH), and 09:00 ET during US standard time (before RTH). A 22:00 run must **not** manufacture an RTH entry or exit when the eligible RTH session has not started. If the strategy action becomes eligible for a later RTH session, the journal records the signal prospectively. A later run should then replay the timestamped historical Level-1 archive and recover the first qualifying RTH bid/ask when an authoritative archive is available.
+22:31 HKT corresponds to 10:31 ET during US daylight saving time (inside RTH), and 09:31 ET during US standard time (before RTH). A 22:31 run must **not** manufacture an RTH entry or exit when the eligible RTH session has not started. If the strategy action becomes eligible for a later RTH session, the journal records the signal prospectively. A later run should then replay the timestamped historical Level-1 archive and recover the first qualifying RTH bid/ask when an authoritative archive is available.
 
 This is an audited reconstruction, not an invented fill. Later closes, premarket/AH prices, OHLC approximations, interpolation or cherry-picked quotes are prohibited.
+
+## Supplementary verified-data visualizations
+
+When data are valid, show SOXX completed-RTH E relative to 1x, a normalized completed-RTH performance comparison of the four monitored assets and actual recorded leveraged-product versus 1x returns. Charts do not replace the mandatory four-row decision table, two-test lifecycle table or three-product performance scoreboard. Never substitute estimated prices for missing quote-side evidence, and mark current RTH vs completed RTH clearly.
 
 ## Repository write rules
 
