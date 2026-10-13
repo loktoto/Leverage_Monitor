@@ -45,3 +45,9 @@
 - Updated operations and reporting policy and methodology/runbook timing notes. Completed US RTH closes remain the ONLY formal signal cutoff, regardless of intraday quotes.
 - Added supplementary visual presentation: SOXX E/1x cross chart, four-asset normalized completed-RTH trends, and recorded leveraged-product versus matching 1x return chart when valid. Charts must not use fabricated series, substitute for tables, or mix incomplete and completed daily data.
 - SOXX formula, 2026-10-11 USD prospective route, SPY/QQQ lifecycle, user-portfolio independence, historical Level-1 reconstruction, and no-broker-order rule are unchanged.
+
+## 2026-10-14 — Mobile-first daily report presentation
+
+- Replaced wide decision/live-test/product Markdown tables with four/two/three narrow vertically stacked panels for iPhone readability; original analytical fields remain mandatory and complete.
+- The user-facing report prioritizes action, short labels, data timestamp and freshness; graphs render inline only where validated. Full production-file SHA values remain in the GitHub audit, with concise verified-write status presented to the user.
+- No change to the 22:31 HKT schedule, SOXX production model, SPY/QQQ lifecycle, performance calculations, validation standards, repository audit obligations or prohibition on broker orders.
