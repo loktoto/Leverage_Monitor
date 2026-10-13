@@ -65,3 +65,15 @@ Use only `OPEN` and `EXIT` for trade lifecycle. Audit-only outcomes such as DATA
 SOXX's selected leveraged-product route is **USD only**, prospective from 2026-10-11. Re-read `production/leverage_signal.json` and `production/leverage_live_test_policy.json` every run. Do not open USD retroactively from 2026-10-01 merely because eligible historical SIP quotes exist; await a prospective qualifying lifecycle event.
 
 After the four-asset decision table (and the max-two live-test lifecycle table), **always show a separate three-row USD / QLD / SSO performance scoreboard**. For each vehicle, label OPEN or EXIT where applicable, or say "no recorded OPEN"; show exact entry ask and mark/exit bid, matching SOXX/QQQ/SPY 1x figures, leveraged-product return, excess pp, timestamp/source/fidelity and realized versus unrealized. When no canonical OPEN exists, official P&L must be N/A; optional pre-selection shadow figures must be identified as hypothetical. Disclose discrepancies between an audited journal lifecycle and live-test state/ledger until reconciled.
+
+## Mobile-first user-facing report layout (effective 2026-10-14)
+
+The earlier 11-column Markdown decision table and wide lifecycle/product tables rendered as literal pipe-delimited source on iPhone, making the report unreadable. **Do not print any wide or pipe-delimited Markdown table in the user-facing report.**
+
+- Display the four-asset decision board as exactly **four vertical mobile-friendly panels**: SOXX, SPY, QQQ, SMH. Each must retain **all** original decision-table fields: asset, decision, vehicle, authority/state, completed signal and date, trigger distance, leverage-vs-1x, contrary evidence, M/D/E/L, Final confidence, and direct Cantonese verdict. Keep 1–2 important values per line.
+- Display live-test SPY/SSO and QQQ/QLD as **up to two vertical panels**, with original entry, qualifying current/exit bid, product and 1x return, excess pp, MAE/MFE/DD, holding sessions, invalidation and GitHub write status.
+- Display the compulsory USD, QLD, SSO performance scoreboard as **exactly three vertical product panels** with all original columns retained semantically, including dates/sources, realized/unrealized/N/A distinction.
+- Show SOXX formal SMA50/SMA200/RV40/raw R/E and next-cross distance in short labeled rows, not a wide table.
+- Lead with action first and HKT/ET, session, latest completed RTH, and data freshness. Native inline charts may supplement the prose only when sufficient trustworthy time-series data exist. Charts must never replace a decision or fabricate results.
+- Store all six full GitHub production-file SHAs and detailed audit in journal/YYYY-MM.md. In the user reply use a compact GitHub commit/read-back status and an audit link; avoid a wall of long SHA strings.
+- This is a **presentation-only change**: no model formula, lifecycle rule, confidence gate, data source authority, original audit field, security policy or broker-order authority changes.
