@@ -97,7 +97,9 @@
       "DATA_CONFLICT"
     ],
     "direct_answer_required": true,
-    "boss_sentence_language": "Traditional_Chinese_Hong_Kong_Cantonese"
+    "boss_sentence_language": "Traditional_Chinese_Hong_Kong_Cantonese",
+    "presentation": "MOBILE_FIRST_FOUR_STACKED_ASSET_DECISION_CARDS",
+    "presentation_equivalence": "Render exactly four assets and EVERY required decision field in their own vertically stacked short card; no 11-column Markdown table."
   },
   "confidence_validation_gate": {
     "trigger": "preliminary_confidence_greater_than_6.0",
@@ -234,11 +236,12 @@
       "validation_and_contrary_evidence",
       "lifecycle_and_repo_updates",
       "methodology_version"
-    ]
+    ],
+    "mobile_report_format": "Four short asset panels, two lifecycle panels max, exactly three product panels, optional data-backed inline charts, compact audit; no wide Markdown tables."
   },
   "mandatory_three_vehicle_performance": {
     "mandatory": true,
-    "position": "AFTER_FOUR_ASSET_DECISION_TABLE_OR_LIVE_TEST_TABLE",
+    "position": "AFTER_FOUR_ASSET_PANELS_AND_LIVE_TEST_PANELS",
     "rows": [
       "USD",
       "QLD",
@@ -265,8 +268,9 @@
     "report_outcomes_without_price": "Show N/A with reason; never omit a ticker.",
     "no_backdating": "USD designated from 2026-10-11 HKT; 2026-10-01 historical quotes are SHADOW reference only, not an official USD trade.",
     "reconcile_note": "SSO #2 paper-live OPEN on 2026-10-02 is now recorded in state and ledger (reconciled 2026-10-11); report canonical state and reconcile future journal-vs-ledger discrepancies if any.",
-    "format_invariance": "Keep the four-row asset decision table and at most two SPY/QQQ live-test lifecycle rows; insert a separate 3-row product performance table.",
-    "independence": "Strategy data only; do not use user's real account, preferences, exposure or capital to determine strategy action."
+    "format_invariance": "Exactly four asset decision panels, at most two live-test panels, exactly three USD/QLD/SSO product panels, preserving all fields; do NOT render the former wide pipe-delimited Markdown tables on mobile.",
+    "independence": "Strategy data only; do not use user's real account, preferences, exposure or capital to determine strategy action.",
+    "presentation": "MOBILE_FIRST_THREE_STACKED_PRODUCT_PANELS"
   },
   "visualization_policy": {
     "effective_date_hkt": "2026-10-12",
@@ -278,7 +282,20 @@
     ],
     "no_chart_if_data_missing": true,
     "never_blend_live_intraday_with_completed_RTH": true,
-    "preserve_required_tables": true,
-    "charts_are_supplementary_not_signal_authority": true
+    "preserve_required_tables": false,
+    "charts_are_supplementary_not_signal_authority": true,
+    "required_content_must_be_preserved": true,
+    "mobile_first_presentation": true,
+    "avoid_pipe_delimited_wide_markdown_tables": true,
+    "desktop_table_fallback_optional": true,
+    "primary_format": "four_stacked_asset_decision_panels_not_11_column_table",
+    "lifecycle_format": "two_stacked_spy_qqq_panels",
+    "three_vehicle_scoreboard_format": "three_stacked_usd_qld_sso_panels",
+    "summary_first": true,
+    "inline_native_charts_preferred": true,
+    "append_complete_six_blob_shas_to_repo_journal": true,
+    "user_facing_sha_summary": "short verification summary and GitHub audit link, never a giant code wall",
+    "user_facing_required_original_columns": "Preserve each original column semantically as vertically stacked labeled fields per asset",
+    "accessibility": "Legible on narrow iPhone portrait; no horizontal table scrolling; two or fewer key metrics per line; clear timestamps and live/stale labels"
   }
 }
