@@ -2,7 +2,7 @@
   "schema_version": 6,
   "status": "PRODUCTION_REPORTING_POLICY",
   "effective_at": "2026-09-30T11:10:00+08:00",
-  "scope": "daily_2231_HKT_unified_leverage_strategy_journal",
+  "scope": "US_RTH_open_plus_1m_0931_ET_unified_leverage_strategy_journal",
   "order_authority": "NONE",
   "production_signal_logic_unchanged": true,
   "production_manifest": "production/leverage_signal.json",
@@ -219,7 +219,7 @@
     "user_portfolio_independence": true,
     "decision_basis": "strategy_rules_and_data_only",
     "broker_order_authority": "NONE",
-    "schedule": "22:31 Asia/Hong_Kong daily",
+    "schedule": "09:31 America/New_York on US stock RTH trading days, DST-aware (21:31 HKT in EDT; 22:31 HKT in EST)",
     "required_daily_record": [
       "as_of_HKT_and_ET",
       "US_session_and_latest_completed_RTH_date",
