@@ -132,7 +132,7 @@ If required validation for a new entry is unavailable, final confidence is cappe
 
 ## 8. Daily audit record
 
-Every 22:31 HKT run writes a journal entry containing:
+Every 09:31 ET US regular-trading-session run (US open + one minute) writes a journal entry containing:
 
 - exact HKT/ET timestamps and US session;
 - latest completed RTH date;
@@ -166,10 +166,10 @@ Historical records remain evaluated under the rule set that existed when the eve
 
 ## 10. Historical quote reconstruction
 
-The 22:31 HKT schedule is generally during US RTH in daylight-saving months (10:31 ET), but before RTH in standard-time months (09:31 ET). Therefore lifecycle prices do not have to remain missing merely because the scheduled report ran before the eligible RTH session.
+The reporting schedule is 09:31 America/New_York on US RTH trading days, one minute after the actual NYSE/Nasdaq 09:30 ET equity open, changing automatically with daylight saving time (21:31 HKT in EDT; 22:31 HKT in EST). US holidays/closures have no open-plus-one-minute report. The 09:31 run uses the latest PRIOR completed US RTH close for formal daily signals, never the incomplete current RTH daily bar. One minute after open may be too soon for authoritative historical Level-1 replay; if the first originally eligible 09:30 quote was missed, first attempt exact historical quote reconstruction, keep lifecycle prices N/A when archival data unavailable, and retry on a later qualifying run without substituting a convenient 09:31 quote as the 09:30 first fill.
 
 When a strategy action becomes eligible for the next US RTH:
-1. record the signal prospectively at the 22:31 HKT run;
+1. record the strategy's valid completed-RTH signal at the first 09:31 ET US trading-session run after it became eligible;
 2. on the next run, query the archived Level-1 record for that eligible RTH session;
 3. deterministically select the first quote that satisfies the original rule and execution gates;
 4. use ask for a long entry and bid for a long exit;
