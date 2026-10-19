@@ -1,3 +1,10 @@
+## 2026-10-19 — Daily schedule tied to US stock RTH open + 1 minute
+
+- Changed the existing Unified Leverage Board automation from fixed 22:31 Asia/Hong_Kong every day to **09:31 America/New_York on each actual US stock regular-trading-session day**, automatically accounting for US daylight saving time: 21:31 HKT (EDT) / 22:31 HKT (EST).
+- Weekday scheduling checks the official US RTH calendar and skips ordinary open-plus-one-minute reports on stock-market holidays and closures; it never claims the incomplete opening-day bar is a completed close.
+- The first eligible 09:30 ET Level-1 RTH quote may be missed at 09:31 ET; continue to require first-qualified-original-time historical L1 replay when available, otherwise mark exact lifecycle fill N/A and retry later; 09:31 latest quote is not silently treated as 09:30 fill.
+- Schedule and documentation change only: SOXX formal model, trade lifecycle, performance, confidence validation, data-source authority, GitHub audit and broker-order prohibition unchanged.
+
 # Methodology Changelog
 
 ## 2026-09-30 — Repository and operating-model reset
