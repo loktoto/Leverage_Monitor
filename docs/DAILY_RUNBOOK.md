@@ -1,8 +1,8 @@
-# Daily Runbook — 22:31 HKT
+# Daily Runbook — US RTH Open + 1 Minute (09:31 ET)
 
 ## Purpose
 
-Run the strategy journal once per day and publish the Unified Leverage Decision Board. The run records what the strategy would do, not what the user personally should do.
+Run the strategy journal once per US equity regular trading session at 09:31 America/New_York (one minute after the 09:30 ET open) and publish the Unified Leverage Decision Board. The run records what the strategy would do, not what the user personally should do.
 
 ## Run sequence
 
@@ -27,7 +27,7 @@ Run the strategy journal once per day and publish the Unified Leverage Decision 
 
 ## Important timing limitation
 
-22:31 HKT corresponds to 10:31 ET during US daylight saving time (inside RTH), and 09:31 ET during US standard time (before RTH). A 22:31 run must **not** manufacture an RTH entry or exit when the eligible RTH session has not started. If the strategy action becomes eligible for a later RTH session, the journal records the signal prospectively. A later run should then replay the timestamped historical Level-1 archive and recover the first qualifying RTH bid/ask when an authoritative archive is available.
+Schedule is anchored to **09:31 America/New_York on US equity regular-session trading days**, exactly one minute after the ordinary 09:30 ET market open. This is **21:31 HKT in US daylight time (EDT)** and **22:31 HKT in US standard time (EST)**. Weekday scheduler attempts must verify the actual NYSE/Nasdaq market calendar: on a US holiday, emergency closure, or any day with no actual RTH open, do not publish an ordinary open-plus-one-minute market report and never manufacture an opening quote. Current-day RTH bars are incomplete at 09:31 ET: formal daily-close signals must use the **latest prior completed RTH session**. A live 09:31 quote is not automatically the **first** valid quote from the original 09:30 eligibility time. When that first qualifying bid/ask was missed, replay original-time historical timestamped Level-1 (IBKR if available, else Alpaca SIP) under the original spread/halt/integrity gates; if unavailable at 09:31, mark lifecycle price N/A and repeat reconstruction on later runs, never use a future favorable or after-hours quote as a substitute. All paper trades remain non-broker executions.
 
 This is an audited reconstruction, not an invented fill. Later closes, premarket/AH prices, OHLC approximations, interpolation or cherry-picked quotes are prohibited.
 
